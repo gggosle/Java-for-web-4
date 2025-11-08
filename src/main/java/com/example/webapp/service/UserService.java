@@ -5,7 +5,6 @@ import com.example.webapp.repository.InMemoryUserRepository;
 import com.example.webapp.repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,7 @@ public class UserService {
     private final InMemoryUserRepository inMemoryUserRepository;
     
     @Autowired
-    public UserService(UserRepository userRepository,
+    public UserService(@Autowired(required = false) UserRepository userRepository,
                       @Autowired(required = false) InMemoryUserRepository inMemoryUserRepository) {
         this.userRepository = userRepository;
         this.inMemoryUserRepository = inMemoryUserRepository;
