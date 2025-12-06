@@ -6,10 +6,11 @@ import com.example.webapp.model.dto.OrderDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
 
-    @Mapping(target = "productIds", expression = "java(order.getProducts().stream().map(Product::getId).collect(java.util.stream.Collectors.toSet()))")
+    @Mapping(target = "productIds", expression = "java(order.getProducts().stream().map(p -> p.getId()).collect(java.util.stream.Collectors.toSet()))")
     @Mapping(target = "customerId", source = "customer.id")
     OrderDTO toDto(Order order);
 
