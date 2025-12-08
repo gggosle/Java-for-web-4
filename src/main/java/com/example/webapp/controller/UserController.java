@@ -1,5 +1,6 @@
 package com.example.webapp.controller;
 
+import com.example.webapp.model.dto.UserCreateDTO;
 import com.example.webapp.model.dto.UserDTO;
 import com.example.webapp.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDTO create(@RequestBody UserDTO dto) {
+    public UserDTO create(@RequestBody UserCreateDTO dto) {
         return service.create(dto);
     }
 }
