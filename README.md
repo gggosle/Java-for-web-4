@@ -101,7 +101,7 @@ The API is available at `http://localhost:8080/api/users`
 
 ### Create User
 ```bash
-POST /api/users
+POST /users
 Content-Type: application/json
 
 {
@@ -123,7 +123,7 @@ Content-Type: application/json
 
 ### Get All Users
 ```bash
-GET /api/users
+GET /users
 ```
 
 **Response:** `200 OK`
@@ -140,14 +140,14 @@ GET /api/users
 
 ### Get User by ID
 ```bash
-GET /api/users/{id}
+GET /users/{id}
 ```
 
 **Response:** `200 OK` or `404 Not Found`
 
 ### Update User
 ```bash
-PUT /api/users/{id}
+PUT /users/{id}
 Content-Type: application/json
 
 {
@@ -161,7 +161,7 @@ Content-Type: application/json
 
 ### Delete User
 ```bash
-DELETE /api/users/{id}
+DELETE /users/{id}
 ```
 
 **Response:** `204 No Content` or `404 Not Found`
@@ -172,23 +172,25 @@ DELETE /api/users/{id}
 
 ```bash
 # Create a user
-curl -X POST http://localhost:8080/api/users \
+curl -X POST http://localhost:8080/users \
   -H "Content-Type: application/json" \
-  -d '{"name":"John Doe","email":"john@example.com","age":30}'
+  -H "X-Requested-With: XMLHttpRequest" \
+  -d '{"username":"John Doe","password":"john@example.com"}'
 
 # Get all users
-curl -X GET http://localhost:8080/api/users
+curl -X GET http://localhost:8080/users \
+  -H "X-Requested-With: XMLHttpRequest" 
 
 # Get user by ID
-curl -X GET http://localhost:8080/api/users/1
+curl -X GET http://localhost:8080/users/1
 
 # Update user
-curl -X PUT http://localhost:8080/api/users/1 \
+curl -X PUT http://localhost:8080/users/1 \
   -H "Content-Type: application/json" \
   -d '{"name":"Jane Doe","email":"jane@example.com","age":25}'
 
 # Delete user
-curl -X DELETE http://localhost:8080/api/users/1
+curl -X DELETE http://localhost:8080/users/1
 ```
 
 ## Running Tests

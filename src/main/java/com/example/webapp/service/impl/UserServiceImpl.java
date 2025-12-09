@@ -6,7 +6,6 @@ import com.example.webapp.model.mapper.UserMapper;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,12 +14,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repo;
     private final UserMapper mapper;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO create(UserCreateDTO dto) {
-        String hashed = passwordEncoder.encode(dto.password());
-        return mapper.toDto(repo.save(mapper.toEntity(dto, hashed)));
+        return mapper.toDto(repo.save(mapper.toEntity(dto)));
     }
 
     @Override
