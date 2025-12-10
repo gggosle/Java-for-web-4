@@ -1,21 +1,32 @@
 services:
-  scene-orchestrator-service:
-    env_file:
-      - .env
-    restart: always
-    image: ${IMAGE_TAG}
-    container_name: scene-orchestrator-service
-    ports:
-      - ${APP_PORT:-8081}:${APP_PORT:-8081}
+  db:
+    image: postgres:15
+    restart: unless-stopped
     environment:
-      - APP_PORT=${APP_PORT}
-      - JWKS_HOST=${JWKS_HOST}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: webshop
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./src/main/resources/db.migration:/docker-entrypoint-initdb.d:ro
 
-    networks:
-      - default-network
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - db
+    restart: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/webshop
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    ports:
+      - "8080:8080"
 
-networks:
-  default-network:
-    external: true
-    name: ${COMPOSE_PROJECT_NAME}_default-network
-
+volumes:
+  db-data:
+    name: java-web-app-db-data
