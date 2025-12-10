@@ -1,0 +1,21 @@
+services:
+  scene-orchestrator-service:
+    env_file:
+      - .env
+    restart: always
+    image: ${IMAGE_TAG}
+    container_name: scene-orchestrator-service
+    ports:
+      - ${APP_PORT:-8081}:${APP_PORT:-8081}
+    environment:
+      - APP_PORT=${APP_PORT}
+      - JWKS_HOST=${JWKS_HOST}
+
+    networks:
+      - default-network
+
+networks:
+  default-network:
+    external: true
+    name: ${COMPOSE_PROJECT_NAME}_default-network
+

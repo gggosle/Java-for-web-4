@@ -1,11 +1,14 @@
 package com.example.webapp.controller;
 
+import com.example.webapp.model.dto.UserCreateDTO;
 import com.example.webapp.model.dto.UserDTO;
 import com.example.webapp.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import com.example.webapp.config.TestSecurityConfig;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -21,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
+@Import(TestSecurityConfig.class)
 class UserControllerTest {
 
     @Autowired
@@ -46,7 +50,7 @@ class UserControllerTest {
     @Test
     void create_returnsCreatedUser() throws Exception {
         UserDTO created = new UserDTO(2L, "jdoe", Instant.now().toString());
-        given(service.create(any(UserDTO.class))).willReturn(created);
+        given(service.create(any(UserCreateDTO.class))).willReturn(created);
 
         String body = "{\"username\":\"jdoe\"}";
 
@@ -55,7 +59,7 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.id").value(2))
                 .andExpect(jsonPath("$.username").value("jdoe"));
 
-        verify(service).create(any(UserDTO.class));
+        verify(service).create(any(UserCreateDTO.class));
     }
 }
 

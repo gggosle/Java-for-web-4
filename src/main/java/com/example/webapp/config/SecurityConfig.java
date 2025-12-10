@@ -18,9 +18,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(servletRequest -> servletRequest.getServletPath().startsWith("/"))
-                )
+                .csrf(csrf -> csrf.disable())  // Disable CSRF protection
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 );

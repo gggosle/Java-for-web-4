@@ -1,10 +1,12 @@
 package com.example.webapp.controller;
 
+import com.example.webapp.config.TestSecurityConfig;
 import com.example.webapp.model.dto.CustomerDTO;
 import com.example.webapp.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @WebMvcTest(CustomerController.class)
+@Import(TestSecurityConfig.class)
 class CustomerControllerTest {
 
     @Autowired

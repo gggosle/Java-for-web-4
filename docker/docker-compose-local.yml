@@ -1,0 +1,19 @@
+services:
+  scene-orchestrator-service:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: scene-orchestrator-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    ports:
+      - ${APP_PORT:-8081}:${APP_PORT:-8081}
+    volumes:
+      - ./build/libs:/app/build/libs
+    networks:
+      - default-network
+
+networks:
+  default-network:
+    external: true
+    name: ${COMPOSE_PROJECT_NAME}_default-network
