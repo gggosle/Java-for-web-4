@@ -1,6 +1,3 @@
--- ==========================================
--- USERS (one-to-one with CUSTOMER)
--- ==========================================
 CREATE TABLE app_user (
                           id BIGSERIAL PRIMARY KEY,
                           username VARCHAR(255) UNIQUE NOT NULL,
@@ -8,9 +5,6 @@ CREATE TABLE app_user (
                           created_at TIMESTAMP DEFAULT NOW()
 );
 
--- ==========================================
--- CUSTOMER (one-to-one with USER)
--- ==========================================
 CREATE TABLE customer (
                           id BIGSERIAL PRIMARY KEY,
                           full_name VARCHAR(255) NOT NULL,
@@ -22,9 +16,6 @@ CREATE TABLE customer (
                                   ON DELETE SET NULL
 );
 
--- ==========================================
--- ORDERS (many-to-one to CUSTOMER)
--- ==========================================
 CREATE TABLE orders (
                         id BIGSERIAL PRIMARY KEY,
                         order_date TIMESTAMP DEFAULT NOW(),
@@ -36,9 +27,6 @@ CREATE TABLE orders (
                                 ON DELETE CASCADE
 );
 
--- ==========================================
--- PRODUCT
--- ==========================================
 CREATE TABLE product (
                          id BIGSERIAL PRIMARY KEY,
                          name VARCHAR(255) NOT NULL,
@@ -46,9 +34,6 @@ CREATE TABLE product (
                          price NUMERIC(10, 2) NOT NULL
 );
 
--- ==========================================
--- PRODUCT_ORDER (many-to-many: ORDER ↔ PRODUCT)
--- ==========================================
 CREATE TABLE product_order (
                                order_id BIGINT NOT NULL,
                                product_id BIGINT NOT NULL,

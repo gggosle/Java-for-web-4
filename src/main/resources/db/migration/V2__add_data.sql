@@ -1,4 +1,3 @@
-
 BEGIN;
 
 INSERT INTO app_user (id, username, password_hash, created_at) VALUES
