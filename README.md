@@ -54,6 +54,17 @@ curl -X POST http://localhost:8080/users \
 # Get user by ID
 curl -X GET http://localhost:8080/users/1
 
+# Create an order
+curl -i -X POST http://localhost:8080/orders -H "Content-Type: application/json" -d '{"status":"NEW","customerId":1,"productIds":[1,2,3]}'
+
+# Get order by ID
+curl -X GET http://localhost:8080/orders/1
+
+# Update an order
+curl -i -X PUT http://localhost:8080/orders/1 -H "Content-Type: application/json" -d '{"status":"SHIPPED","customerId":1,"productIds":[1,2,3]}'
+
+# Delete an order
+curl -i -X DELETE http://localhost:8080/orders/1
 ```
 
 ## Running Tests
